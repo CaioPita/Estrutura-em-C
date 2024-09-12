@@ -1,42 +1,42 @@
 #include <stdio.h>
 #include <stdlib.h>
-#define TAM 32
+#define TAM 100
 typedef struct{
-    int vet[TAM];
     int topo;
+    int vet[TAM];
 }pilhavet;
-void empilha( int valor,pilhavet*p){
+void empilha(int resto,pilhavet*p){
     if(p->topo==TAM-1){
-        printf("\nPilha Cheia");
+        printf("\nPilha Cheia!");
         exit(0);
     }
     p->topo++;
-    p->vet[p->topo]=valor;
+    p->vet[p->topo]=resto;
 }
 int desempilha(pilhavet*p){
-    int aux;
-    if(p->topo<0){
-        printf("\nPilha Vazia");
+    int n;
+    if(p->topo){
+        printf("\nPilha Vazia!");
         exit(1);
     }
-    aux=p->vet[p->topo];
+    n=p->vet[p->topo];
     p->topo--;
-    return aux;
+    return n;
 }
-int main(void){
-    pilhavet binario;
+int main(){
+    pilhavet pilha;
+    int resto;
     int num;
-    int rest;
     pilha.topo=-1;
-    printf("\nDigite um número inteiro: \n")
+    printf("\nDigite o valor a ser convertido para binário\n");
     scanf("%d",&num);
-    if(num==0){
-        printf("A representação binária de 0 é 0.\n");
-        return(0);
-    }
     while(num>0){
-        rest=num%2;
+        resto=num%2;
+        empilha(resto,&pilha);
+        num=num/2;
     }
-    
-    
+    while(pilha.topo>-1){
+        printf("%d",desempilha(&pilha));
+    }
+    return(0);
 }
